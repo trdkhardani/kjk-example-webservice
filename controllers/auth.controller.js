@@ -10,7 +10,6 @@ const jwt = require('jsonwebtoken');
 
 const Dotenv = require('dotenv');
 const dotenv = Dotenv.config();
-// const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY
 const { JWT_SECRET_KEY } = process.env
 
 router.post('/register', async (req, res, next) => {
@@ -29,10 +28,6 @@ router.post('/register', async (req, res, next) => {
         res.redirect('/login?status=new_user')
     } catch(err) {
         if(err.code === 'P2002'){
-            // return res.status(409).json({
-            //     status: 'error',
-            //     message: 'Email has been taken',
-            // })
             return res.status(404).render('error.ejs', {
                 message: 'Email has been taken',
                 backURL: '/login'
@@ -76,10 +71,6 @@ router.post('/login', async (req, res, next) => {
         res.redirect('/authenticate')
     } catch(err) {
         if(err.statusCode){
-            // return res.status(err.statusCode).json({
-            //     status: 'error',
-            //     message: err.message
-            // })
             return res.status(err.statusCode).render('error.ejs', {
                 message: err.message,
                 backURL: '/login'
@@ -88,5 +79,22 @@ router.post('/login', async (req, res, next) => {
         next(err)
     }
 })
+
+router.get('/logout', (req, res) => {
+    try {
+        // Clear the JWT token cookie
+        res.clearCookie('token', {
+            httpOnly: true
+        });
+
+        // Redirect to login page after logout
+        res.redirect('/login?status=logged_out');
+    } catch (err) {
+        res.status(500).render('error.ejs', {
+            message: 'An error occurred while logging out',
+            backURL: '/'
+        });
+    }
+});
 
 module.exports = router;

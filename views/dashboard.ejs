@@ -6,17 +6,8 @@
     <title>Dashboard</title>
 </head>
 <body>
-    <!-- <h2 id="userId"></h2> -->
-    <!-- <script src="/socket.io/socket.io.js"></script> -->
-    <!-- <script> -->
-        <!-- const socket = io();
-
-        socket.on("log in greet", (userId) => {
-            document.getElementById("userId").innerHTML = userId
-        })
-        alert(`${name}`) -->
-    <!-- </script> -->
-    <h1>Authenticated!</h1>
-    <h3>Welcome, <%= name %>!</h3>
+    <h1>Terautentikasi!</h1>
+    <h3>Selamat Datang, <%= name %>!</h3>
+    <a href="/api/v1/auth/logout">Logout</a>
 </body>
 </html>
