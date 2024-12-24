@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirm Email: Forgot Password</title>
+</head>
+<body>
+    <h1>Email Confirmation</h1>
+    <p>Please provide your email to proceed to next step of password reset</p>
+    <form action="/api/v1/password/forget" method="post">
+        <div>
+            <label for="user_email">Email: </label>
+            <input type="text" name="user_email" id="user_email">
+        </div>
+    
+        <div>
+            <input type="submit" value="Confirm Email">
+        </div>
+    </form>
+</body>
+</html>

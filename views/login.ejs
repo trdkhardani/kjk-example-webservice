@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <script src="/socket.io/socket.io.js">
+        const socket = io();
+    </script>
+</head>
+<body>
+    <h1>Login Page</h1>
+
+    <div id="notification" style="color:green;"></div>
+
+    <form action="/api/v1/auth/login" method="post">
+        <div>
+            <label for="user_email">Email: </label>
+            <input type="text" name="user_email" id="user_email" required>
+        </div>
+        <div>
+            <label for="user_password">Password: </label>
+            <input type="password" name="user_password" id="user_password" required>
+        </div>
+    
+        <div>
+            <input type="submit" value="Login">
+        </div>
+        <a href="/register">Register</a>
+        <br>
+        <a href="/email-confirmation">Forget Password?</a>
+    </form>
+
+    <% if(queryParam === 'new_user'){ %>
+        <script>
+            socket = io();
+    
+            socket.on("new_user", (message) => {
+                const notification = document.getElementById('notification');
+                notification.textContent = message;
+            })
+
+            socket.emit("new_user_notification", "Registration Successful!")
+        </script>
+    <% } else if(queryParam === 'password_changed') { %>
+        <script>
+            socket = io();
+    
+            socket.on("password_changed", (message) => {
+                const notification = document.getElementById('notification');
+                notification.textContent = message;
+            })
+            socket.emit("password_changed_notification", "Password Successfully Changed!")
+        </script>
+    <% } else { %>
+        <p></p>
+    <% } %>
+</body>
+</html>
